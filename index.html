@@ -3,32 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Holograma Corazón</title>
+<title>Holograma Programación</title>
 
 <style>
 body {
     margin: 0;
     background: black;
     overflow: hidden;
+    color: #00ffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
 }
 
-.container {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-}
-
-/* Texto holográfico */
+/* ---- CORAZÓN ---- */
 .word {
     position: absolute;
     color: #00ffff;
-    font-size: 12px;
+    font-size: 10px;
     text-shadow: 0 0 8px #00ffff,
                  0 0 15px #00ffff,
                  0 0 25px #00ffff;
 }
 
-/* Animación latido */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.1); }
@@ -41,41 +37,110 @@ body {
     height: 100%;
     animation: pulse 1.5s infinite;
 }
+
+/* ---- DEFINICIÓN ---- */
+.definition {
+    padding: 40px;
+    font-size: 1.2rem;
+    animation: fadeIn 1.5s ease-in;
+}
+
+/* ---- MUNDO ---- */
+.globe {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid #00ffff;
+    box-shadow: 0 0 30px #00ffff;
+    margin: 30px auto;
+    animation: rotate 6s linear infinite;
+}
+
+.features {
+    font-size: 1rem;
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes rotate {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 </style>
 </head>
 
-<body>
+<body onclick="nextStage()">
 
-<div class="container">
-    <div class="heart" id="heart"></div>
-</div>
+<div id="content"></div>
 
 <script>
-const container = document.getElementById("heart");
+let stage = 0;
+const content = document.getElementById("content");
 
-const width = window.innerWidth;
-const height = window.innerHeight;
+function createHeart() {
+    content.innerHTML = '<div class="heart" id="heart"></div>';
+    const heart = document.getElementById("heart");
 
-const scale = Math.min(width, height) / 40;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const scale = Math.min(width, height) / 40;
 
-for (let i = 0; i < 200; i++) {
-    let t = Math.PI * 2 * i / 200;
+    for (let i = 0; i < 200; i++) {
+        let t = Math.PI * 2 * i / 200;
 
-    let x = 16 * Math.pow(Math.sin(t), 3);
-    let y = 13 * Math.cos(t)
-            - 5 * Math.cos(2*t)
-            - 2 * Math.cos(3*t)
-            - Math.cos(4*t);
+        let x = 16 * Math.pow(Math.sin(t), 3);
+        let y = 13 * Math.cos(t)
+                - 5 * Math.cos(2*t)
+                - 2 * Math.cos(3*t)
+                - Math.cos(4*t);
 
-    let span = document.createElement("span");
-    span.className = "word";
-    span.innerText = "HELLO WORLD";
+        let span = document.createElement("span");
+        span.className = "word";
+        span.innerText = "HELLO WORLD";
 
-    span.style.left = (width / 2 + x * scale) + "px";
-    span.style.top = (height / 2 - y * scale) + "px";
+        span.style.left = (width / 2 + x * scale) + "px";
+        span.style.top = (height / 2 - y * scale) + "px";
 
-    container.appendChild(span);
+        heart.appendChild(span);
+    }
 }
+
+function nextStage() {
+    stage++;
+
+    if (stage === 1) {
+        content.innerHTML = `
+        <div class="definition">
+        <h2>¿Qué es la Programación?</h2>
+        <p>
+        La programación es el proceso de diseñar y escribir instrucciones
+        que una computadora puede ejecutar para resolver problemas y
+        desarrollar soluciones tecnológicas.
+        </p>
+        </div>`;
+    }
+
+    else if (stage === 2) {
+        content.innerHTML = `
+        <div class="globe"></div>
+        <div class="features">
+            <p><strong>Lógica:</strong> Permite estructurar soluciones paso a paso.</p>
+            <p><strong>Precisión:</strong> Requiere instrucciones claras y exactas.</p>
+            <p><strong>Automatización:</strong> Ejecuta tareas sin intervención constante.</p>
+        </div>`;
+    }
+
+    else {
+        stage = 0;
+        createHeart();
+    }
+}
+
+createHeart();
 </script>
 
 </body>
