@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holograma Hello World</title>
+
+<style>
+    body {
+        margin: 0;
+        background: black;
+        color: #00ffff;
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .hologram {
+        font-size: 2rem;
+        animation: glow 1.5s infinite alternate;
+    }
+
+    @keyframes glow {
+        from { text-shadow: 0 0 10px #00ffff; }
+        to { text-shadow: 0 0 30px #00ffff; }
+    }
+
+    .globe {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        border: 3px solid #00ffff;
+        margin: auto;
+        animation: rotate 5s linear infinite;
+    }
+
+    @keyframes rotate {
+        from { transform: rotateY(0deg); }
+        to { transform: rotateY(360deg); }
+    }
+
+    .features {
+        margin-top: 20px;
+        font-size: 1rem;
+    }
+</style>
+</head>
+
+<body onclick="nextStage()">
+
+<div id="content" class="hologram">
+    Hello World
+</div>
+
+<script>
+let stage = 0;
+
+function nextStage() {
+    const content = document.getElementById("content");
+
+    stage++;
+
+    if (stage === 1) {
+        content.innerHTML = `
+        <div class="hologram">
+            <h2>¿Qué es la Programación?</h2>
+            <p>La programación es el proceso de crear instrucciones que una computadora puede ejecutar para resolver problemas y crear soluciones tecnológicas.</p>
+        </div>
+        `;
+    }
+
+    else if (stage === 2) {
+        content.innerHTML = `
+        <div class="globe"></div>
+        <div class="features">
+            <p><strong>Lógica:</strong> Secuencia ordenada de instrucciones.</p>
+            <p><strong>Precisión:</strong> Instrucciones exactas y claras.</p>
+            <p><strong>Automatización:</strong> Ejecución automática de tareas.</p>
+        </div>
+        `;
+    }
+
+    else {
+        stage = 0;
+        content.innerHTML = "Hello World";
+    }
+}
+</script>
+
+</body>
+</html>
