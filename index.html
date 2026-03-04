@@ -6,54 +6,95 @@
 <title>Holograma Hello World</title>
 
 <style>
-    body {
-        margin: 0;
-        background: black;
-        color: #00ffff;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
-        text-align: center;
-    }
+body {
+    margin: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+}
 
-    .hologram {
-        font-size: 2rem;
-        animation: glow 1.5s infinite alternate;
-    }
+/* EFECTO HOLOGRAMA */
+.hologram-text {
+    font-size: 3rem;
+    color: #00ffff;
+    position: relative;
+    animation: float 3s ease-in-out infinite;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
 
-    @keyframes glow {
-        from { text-shadow: 0 0 10px #00ffff; }
-        to { text-shadow: 0 0 30px #00ffff; }
-    }
+.hologram-text::before,
+.hologram-text::after {
+    content: "HELLO WORLD";
+    position: absolute;
+    left: 0;
+    width: 100%;
+    opacity: 0.7;
+}
 
-    .globe {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        border: 3px solid #00ffff;
-        margin: auto;
-        animation: rotate 5s linear infinite;
-    }
+.hologram-text::before {
+    color: #00f7ff;
+    transform: translateX(-3px);
+}
 
-    @keyframes rotate {
-        from { transform: rotateY(0deg); }
-        to { transform: rotateY(360deg); }
-    }
+.hologram-text::after {
+    color: #0088ff;
+    transform: translateX(3px);
+}
 
-    .features {
-        margin-top: 20px;
-        font-size: 1rem;
-    }
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* DEFINICION */
+.definition {
+    color: #00ffff;
+    font-size: 1.2rem;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-in;
+}
+
+/* MUNDO */
+.globe {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 3px solid #00ffff;
+    box-shadow: 0 0 30px #00ffff;
+    margin: auto;
+    animation: rotate 6s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotateY(0deg); }
+    to { transform: rotateY(360deg); }
+}
+
+.features {
+    color: #00ffff;
+    margin-top: 20px;
+    font-size: 1rem;
+    animation: fadeIn 2s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 </style>
 </head>
 
 <body onclick="nextStage()">
 
-<div id="content" class="hologram">
-    Hello World
+<div id="content">
+    <div class="hologram-text">HELLO WORLD</div>
 </div>
 
 <script>
@@ -61,16 +102,14 @@ let stage = 0;
 
 function nextStage() {
     const content = document.getElementById("content");
-
     stage++;
 
     if (stage === 1) {
         content.innerHTML = `
-        <div class="hologram">
-            <h2>¿Qué es la Programación?</h2>
-            <p>La programación es el proceso de crear instrucciones que una computadora puede ejecutar para resolver problemas y crear soluciones tecnológicas.</p>
-        </div>
-        `;
+        <div class="definition">
+        <h2>¿Qué es la Programación?</h2>
+        <p>La programación es el proceso de crear instrucciones que una computadora puede ejecutar para resolver problemas y desarrollar soluciones tecnológicas.</p>
+        </div>`;
     }
 
     else if (stage === 2) {
@@ -78,15 +117,14 @@ function nextStage() {
         <div class="globe"></div>
         <div class="features">
             <p><strong>Lógica:</strong> Secuencia ordenada de instrucciones.</p>
-            <p><strong>Precisión:</strong> Instrucciones exactas y claras.</p>
-            <p><strong>Automatización:</strong> Ejecución automática de tareas.</p>
-        </div>
-        `;
+            <p><strong>Precisión:</strong> Instrucciones claras y exactas.</p>
+            <p><strong>Automatización:</strong> Permite ejecutar tareas automáticamente.</p>
+        </div>`;
     }
 
     else {
         stage = 0;
-        content.innerHTML = "Hello World";
+        content.innerHTML = `<div class="hologram-text">HELLO WORLD</div>`;
     }
 }
 </script>
