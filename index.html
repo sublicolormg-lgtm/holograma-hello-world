@@ -3,129 +3,78 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Holograma Hello World</title>
+<title>Holograma Corazón</title>
 
 <style>
 body {
     margin: 0;
     background: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     overflow: hidden;
-    font-family: 'Arial', sans-serif;
-    text-align: center;
 }
 
-/* EFECTO HOLOGRAMA */
-.hologram-text {
-    font-size: 3rem;
-    color: #00ffff;
+.container {
     position: relative;
-    animation: float 3s ease-in-out infinite;
-    text-transform: uppercase;
-    letter-spacing: 3px;
+    width: 100vw;
+    height: 100vh;
 }
 
-.hologram-text::before,
-.hologram-text::after {
-    content: "HELLO WORLD";
+/* Texto holográfico */
+.word {
     position: absolute;
-    left: 0;
+    color: #00ffff;
+    font-size: 12px;
+    text-shadow: 0 0 8px #00ffff,
+                 0 0 15px #00ffff,
+                 0 0 25px #00ffff;
+}
+
+/* Animación latido */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.heart {
+    position: absolute;
     width: 100%;
-    opacity: 0.7;
-}
-
-.hologram-text::before {
-    color: #00f7ff;
-    transform: translateX(-3px);
-}
-
-.hologram-text::after {
-    color: #0088ff;
-    transform: translateX(3px);
-}
-
-@keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
-    100% { transform: translateY(0px); }
-}
-
-/* DEFINICION */
-.definition {
-    color: #00ffff;
-    font-size: 1.2rem;
-    padding: 20px;
-    animation: fadeIn 1.5s ease-in;
-}
-
-/* MUNDO */
-.globe {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 3px solid #00ffff;
-    box-shadow: 0 0 30px #00ffff;
-    margin: auto;
-    animation: rotate 6s linear infinite;
-}
-
-@keyframes rotate {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-}
-
-.features {
-    color: #00ffff;
-    margin-top: 20px;
-    font-size: 1rem;
-    animation: fadeIn 2s ease-in;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    height: 100%;
+    animation: pulse 1.5s infinite;
 }
 </style>
 </head>
 
-<body onclick="nextStage()">
+<body>
 
-<div id="content">
-    <div class="hologram-text">HELLO WORLD</div>
+<div class="container">
+    <div class="heart" id="heart"></div>
 </div>
 
 <script>
-let stage = 0;
+const container = document.getElementById("heart");
 
-function nextStage() {
-    const content = document.getElementById("content");
-    stage++;
+const width = window.innerWidth;
+const height = window.innerHeight;
 
-    if (stage === 1) {
-        content.innerHTML = `
-        <div class="definition">
-        <h2>¿Qué es la Programación?</h2>
-        <p>La programación es el proceso de crear instrucciones que una computadora puede ejecutar para resolver problemas y desarrollar soluciones tecnológicas.</p>
-        </div>`;
-    }
+const scale = Math.min(width, height) / 40;
 
-    else if (stage === 2) {
-        content.innerHTML = `
-        <div class="globe"></div>
-        <div class="features">
-            <p><strong>Lógica:</strong> Secuencia ordenada de instrucciones.</p>
-            <p><strong>Precisión:</strong> Instrucciones claras y exactas.</p>
-            <p><strong>Automatización:</strong> Permite ejecutar tareas automáticamente.</p>
-        </div>`;
-    }
+for (let i = 0; i < 200; i++) {
+    let t = Math.PI * 2 * i / 200;
 
-    else {
-        stage = 0;
-        content.innerHTML = `<div class="hologram-text">HELLO WORLD</div>`;
-    }
+    let x = 16 * Math.pow(Math.sin(t), 3);
+    let y = 13 * Math.cos(t)
+            - 5 * Math.cos(2*t)
+            - 2 * Math.cos(3*t)
+            - Math.cos(4*t);
+
+    let span = document.createElement("span");
+    span.className = "word";
+    span.innerText = "HELLO WORLD";
+
+    span.style.left = (width / 2 + x * scale) + "px";
+    span.style.top = (height / 2 - y * scale) + "px";
+
+    container.appendChild(span);
 }
 </script>
 
