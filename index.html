@@ -3,72 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Holograma Programación</title>
+<title>Proyecto Interactivo Robótica</title>
 
 <style>
-body {
-    margin: 0;
-    background: black;
-    overflow: hidden;
-    color: #00ffff;
-    font-family: Arial, sans-serif;
-    text-align: center;
+body{
+    margin:0;
+    background:black;
+    overflow:hidden;
+    color:#00ffff;
+    font-family:Arial, sans-serif;
+    text-align:center;
 }
 
-/* ---- CORAZÓN ---- */
-.word {
-    position: absolute;
-    color: #00ffff;
-    font-size: 10px;
-    text-shadow: 0 0 8px #00ffff,
-                 0 0 15px #00ffff,
-                 0 0 25px #00ffff;
+/* TEXTO HOLOGRÁFICO */
+.holo{
+    color:#00ffff;
+    text-shadow:0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 30px #00ffff;
+    animation:float 2s ease-in-out infinite;
 }
 
-@keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+@keyframes float{
+    0%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
+    100%{transform:translateY(0px);}
 }
 
-.heart {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    animation: pulse 1.5s infinite;
+/* AVIÓN */
+.word{
+    position:absolute;
+    font-size:10px;
+    color:#00ffff;
+    text-shadow:0 0 8px #00ffff,
+                0 0 15px #00ffff,
+                0 0 25px #00ffff;
 }
 
-/* ---- DEFINICIÓN ---- */
-.definition {
-    padding: 40px;
-    font-size: 1.2rem;
-    animation: fadeIn 1.5s ease-in;
+.plane{
+    position:absolute;
+    width:100%;
+    height:100%;
 }
 
-/* ---- MUNDO ---- */
-.globe {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    border: 3px solid #00ffff;
-    box-shadow: 0 0 30px #00ffff;
-    margin: 30px auto;
-    animation: rotate 6s linear infinite;
+.info{
+    padding:40px;
+    font-size:1.2rem;
+    animation:fade 1.5s ease-in;
 }
 
-.features {
-    font-size: 1rem;
-    animation: fadeIn 2s ease-in;
-}
-
-@keyframes rotate {
-    from { transform: rotateY(0deg); }
-    to { transform: rotateY(360deg); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
 }
 </style>
 </head>
@@ -81,66 +67,87 @@ body {
 let stage = 0;
 const content = document.getElementById("content");
 
-function createHeart() {
-    content.innerHTML = '<div class="heart" id="heart"></div>';
-    const heart = document.getElementById("heart");
+function showTouch(){
+    content.innerHTML = `
+        <h1 class="holo">TOCA AQUÍ</h1>
+    `;
+}
+
+function createPlane(sizeFactor, textLabel="HELLO WORLD"){
+    content.innerHTML = '<div class="plane" id="plane"></div>';
+    const container = document.getElementById("plane");
 
     const width = window.innerWidth;
     const height = window.innerHeight;
-    const scale = Math.min(width, height) / 40;
+    const scale = (Math.min(width,height)/30)*sizeFactor;
 
-    for (let i = 0; i < 200; i++) {
-        let t = Math.PI * 2 * i / 200;
+    const points = [
+        [0,-8],[-6,0],[-2,-2],[0,3],[2,-2],[6,0],[0,-8]
+    ];
 
-        let x = 16 * Math.pow(Math.sin(t), 3);
-        let y = 13 * Math.cos(t)
-                - 5 * Math.cos(2*t)
-                - 2 * Math.cos(3*t)
-                - Math.cos(4*t);
+    points.forEach(p=>{
+        let span=document.createElement("span");
+        span.className="word";
+        span.innerText=textLabel;
 
-        let span = document.createElement("span");
-        span.className = "word";
-        span.innerText = "HELLO WORLD";
+        span.style.left=(width/2+p[0]*scale)+"px";
+        span.style.top=(height/2+p[1]*scale)+"px";
 
-        span.style.left = (width / 2 + x * scale) + "px";
-        span.style.top = (height / 2 - y * scale) + "px";
+        container.appendChild(span);
+    });
 
-        heart.appendChild(span);
+    for(let i=-5;i<=5;i++){
+        for(let j=-2;j<=2;j++){
+            if(Math.abs(i)+Math.abs(j)<6){
+                let span=document.createElement("span");
+                span.className="word";
+                span.innerText=textLabel;
+
+                span.style.left=(width/2+i*scale)+"px";
+                span.style.top=(height/2+j*scale)+"px";
+
+                container.appendChild(span);
+            }
+        }
     }
 }
 
-function nextStage() {
+function showInfo(){
+    content.innerHTML = `
+    <div class="info">
+        <h2>¿Qué es la Robótica?</h2>
+        <p>
+        La robótica es la rama de la ingeniería y la tecnología que se encarga
+        del diseño, construcción y programación de robots capaces de realizar
+        tareas de forma automática.
+        </p>
+        <p>
+        Integra áreas como programación, electrónica y mecánica para crear
+        sistemas inteligentes que apoyan al ser humano en distintos ámbitos.
+        </p>
+    </div>
+    `;
+}
+
+function nextStage(){
     stage++;
 
-    if (stage === 1) {
-        content.innerHTML = `
-        <div class="definition">
-        <h2>¿Qué es la Programación?</h2>
-        <p>
-        La programación es el proceso de diseñar y escribir instrucciones
-        que una computadora puede ejecutar para resolver problemas y
-        desarrollar soluciones tecnológicas.
-        </p>
-        </div>`;
+    if(stage===1){
+        createPlane(1.2,"HELLO WORLD"); // avión grande
     }
-
-    else if (stage === 2) {
-        content.innerHTML = `
-        <div class="globe"></div>
-        <div class="features">
-            <p><strong>Lógica:</strong> Permite estructurar soluciones paso a paso.</p>
-            <p><strong>Precisión:</strong> Requiere instrucciones claras y exactas.</p>
-            <p><strong>Automatización:</strong> Ejecuta tareas sin intervención constante.</p>
-        </div>`;
+    else if(stage===2){
+        showInfo(); // información robótica
     }
-
-    else {
-        stage = 0;
-        createHeart();
+    else if(stage===3){
+        createPlane(0.6,"GRACIAS"); // avión pequeño + gracias
+    }
+    else{
+        stage=0;
+        showTouch();
     }
 }
 
-createHeart();
+showTouch();
 </script>
 
 </body>
