@@ -15,7 +15,7 @@ body{
     text-align:center;
 }
 
-/* HOLOGRAMA */
+/* EFECTO HOLOGRÁFICO */
 .holo{
     color:#00ffff;
     text-shadow:0 0 10px #00ffff,
@@ -30,14 +30,19 @@ body{
     100%{transform:translateY(0);}
 }
 
-/* TEXTO AVION */
-.word{
-    position:absolute;
-    font-size:9px;
-    color:#00ffff;
-    text-shadow:0 0 8px #00ffff,
-                0 0 15px #00ffff,
-                0 0 25px #00ffff;
+/* AVIÓN SVG */
+.plane-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    animation:float 3s ease-in-out infinite;
+}
+
+svg{
+    width:300px;
+    filter:drop-shadow(0 0 15px #00ffff)
+           drop-shadow(0 0 30px #00ffff);
 }
 
 .info{
@@ -65,44 +70,24 @@ function showTouch(){
     content.innerHTML = `<h1 class="holo">TOCA AQUÍ</h1>`;
 }
 
-function createPlane(size, text){
-    content.innerHTML="";
-    const w = window.innerWidth;
-    const h = window.innerHeight;
-    const scale = (Math.min(w,h)/25)*size;
-
-    const planePoints = [
-        [0,-10],      // punta
-        [-8,2],       // ala izquierda
-        [-3,0],
-        [0,6],        // centro abajo
-        [3,0],
-        [8,2],        // ala derecha
-        [0,-10]       // regreso punta
-    ];
-
-    planePoints.forEach(p=>{
-        let span=document.createElement("span");
-        span.className="word";
-        span.innerText=text;
-        span.style.left=(w/2+p[0]*scale)+"px";
-        span.style.top=(h/2+p[1]*scale)+"px";
-        content.appendChild(span);
-    });
-
-    // Relleno interior del avión
-    for(let x=-6;x<=6;x++){
-        for(let y=-2;y<=4;y++){
-            if(Math.abs(x) + y < 7 && y>=-1){
-                let span=document.createElement("span");
-                span.className="word";
-                span.innerText=text;
-                span.style.left=(w/2+x*scale)+"px";
-                span.style.top=(h/2+y*scale)+"px";
-                content.appendChild(span);
-            }
-        }
-    }
+function createPlane(text,size){
+    content.innerHTML = `
+    <div class="plane-container">
+        <svg viewBox="0 0 512 512">
+            <polygon fill="none" stroke="#00ffff" stroke-width="6"
+            points="256,40 470,470 256,380 42,470"/>
+        </svg>
+        <div style="
+            position:absolute;
+            color:#00ffff;
+            font-size:${size}px;
+            text-shadow:0 0 10px #00ffff,
+                        0 0 20px #00ffff,
+                        0 0 40px #00ffff;">
+            ${text}
+        </div>
+    </div>
+    `;
 }
 
 function showInfo(){
@@ -114,8 +99,9 @@ function showInfo(){
         electrónica y mecánica para diseñar y construir robots.
         </p>
         <p>
-        Su objetivo es crear máquinas capaces de realizar tareas
-        automáticamente y apoyar al ser humano en distintas áreas.
+        Permite desarrollar máquinas inteligentes capaces de
+        ejecutar tareas automáticamente y apoyar al ser humano
+        en diferentes ámbitos industriales y tecnológicos.
         </p>
     </div>
     `;
@@ -125,13 +111,13 @@ function nextStage(){
     stage++;
 
     if(stage===1){
-        createPlane(1.2,"HELLO WORLD");
+        createPlane("HELLO WORLD",20);
     }
     else if(stage===2){
         showInfo();
     }
     else if(stage===3){
-        createPlane(0.6,"GRACIAS");
+        createPlane("GRACIAS",16);
     }
     else{
         stage=0;
