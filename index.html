@@ -15,7 +15,7 @@ body{
     text-align:center;
 }
 
-/* EFECTO HOLOGRÁFICO */
+/* Holograma */
 .holo{
     color:#00ffff;
     text-shadow:0 0 10px #00ffff,
@@ -26,11 +26,11 @@ body{
 
 @keyframes float{
     0%{transform:translateY(0);}
-    50%{transform:translateY(-12px);}
+    50%{transform:translateY(-10px);}
     100%{transform:translateY(0);}
 }
 
-/* AVIÓN SVG */
+/* Contenedor avión */
 .plane-container{
     display:flex;
     justify-content:center;
@@ -39,10 +39,21 @@ body{
     animation:float 3s ease-in-out infinite;
 }
 
+/* Avión SVG */
 svg{
-    width:300px;
+    width:350px;
     filter:drop-shadow(0 0 15px #00ffff)
            drop-shadow(0 0 30px #00ffff);
+}
+
+/* Texto dentro del avión */
+.plane-text{
+    position:absolute;
+    font-size:20px;
+    color:#00ffff;
+    text-shadow:0 0 10px #00ffff,
+                0 0 20px #00ffff,
+                0 0 40px #00ffff;
 }
 
 .info{
@@ -70,22 +81,24 @@ function showTouch(){
     content.innerHTML = `<h1 class="holo">TOCA AQUÍ</h1>`;
 }
 
-function createPlane(text,size){
+function createPlane(text){
     content.innerHTML = `
     <div class="plane-container">
         <svg viewBox="0 0 512 512">
-            <polygon fill="none" stroke="#00ffff" stroke-width="6"
-            points="256,40 470,470 256,380 42,470"/>
+            <!-- Ala izquierda -->
+            <polygon fill="none" stroke="#00ffff" stroke-width="5"
+            points="256,60 60,450 230,360"/>
+            
+            <!-- Ala derecha -->
+            <polygon fill="none" stroke="#00ffff" stroke-width="5"
+            points="256,60 452,450 282,360"/>
+
+            <!-- Línea central -->
+            <line x1="256" y1="60" x2="256" y2="450"
+            stroke="#00ffff" stroke-width="4"/>
         </svg>
-        <div style="
-            position:absolute;
-            color:#00ffff;
-            font-size:${size}px;
-            text-shadow:0 0 10px #00ffff,
-                        0 0 20px #00ffff,
-                        0 0 40px #00ffff;">
-            ${text}
-        </div>
+
+        <div class="plane-text">${text}</div>
     </div>
     `;
 }
@@ -95,13 +108,12 @@ function showInfo(){
     <div class="info">
         <h2>¿Qué es la Robótica?</h2>
         <p>
-        La robótica es una disciplina que combina programación,
+        La robótica es una disciplina que integra programación,
         electrónica y mecánica para diseñar y construir robots.
         </p>
         <p>
-        Permite desarrollar máquinas inteligentes capaces de
-        ejecutar tareas automáticamente y apoyar al ser humano
-        en diferentes ámbitos industriales y tecnológicos.
+        Su finalidad es desarrollar sistemas automáticos capaces
+        de ejecutar tareas y asistir al ser humano en distintos campos.
         </p>
     </div>
     `;
@@ -111,13 +123,13 @@ function nextStage(){
     stage++;
 
     if(stage===1){
-        createPlane("HELLO WORLD",20);
+        createPlane("HELLO WORLD");
     }
     else if(stage===2){
         showInfo();
     }
     else if(stage===3){
-        createPlane("GRACIAS",16);
+        createPlane("GRACIAS");
     }
     else{
         stage=0;
