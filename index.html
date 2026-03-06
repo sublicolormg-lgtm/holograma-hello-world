@@ -2,144 +2,204 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Proyecto Robótica</title>
 
 <style>
+
 body{
-    margin:0;
-    background:black;
-    overflow:hidden;
-    color:#00ffff;
-    font-family:Arial, sans-serif;
-    text-align:center;
+margin:0;
+font-family:Arial;
+background:black;
+color:white;
+scroll-behavior:smooth;
 }
 
-/* EFECTO HOLOGRÁFICO */
-.holo{
-    color:#00ffff;
-    text-shadow:0 0 10px #00ffff,
-                0 0 20px #00ffff,
-                0 0 40px #00ffff;
-    animation:float 2s ease-in-out infinite;
+/* SPOTS */
+
+.section{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
 }
 
-@keyframes float{
-    0%{transform:translateY(0);}
-    50%{transform:translateY(-10px);}
-    100%{transform:translateY(0);}
+/* SPOT 1 */
+
+#inicio{
+font-size:60px;
+color:red;
+cursor:pointer;
 }
 
-/* CONTENEDOR AVIÓN */
-.plane-container{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    position:relative;
-    animation:float 3s ease-in-out infinite;
+/* SPOT 3 */
+
+#robotica h1{
+color:red;
+font-size:50px;
 }
 
-/* AVIÓN LATERAL */
-svg{
-    width:400px;
-    filter:drop-shadow(0 0 15px #00ffff)
-           drop-shadow(0 0 30px #00ffff);
+#robotica p{
+max-width:800px;
+line-height:1.6;
+font-size:18px;
+color:white;
 }
 
-/* TEXTO SOBRE AVIÓN */
-.plane-text{
-    position:absolute;
-    font-size:22px;
-    color:#00ffff;
-    text-shadow:0 0 10px #00ffff,
-                0 0 20px #00ffff,
-                0 0 40px #00ffff;
+canvas{
+display:block;
 }
 
-.info{
-    padding:40px;
-    font-size:1.2rem;
-    animation:fade 1.5s ease-in;
-}
-
-@keyframes fade{
-    from{opacity:0;}
-    to{opacity:1;}
-}
 </style>
 </head>
 
-<body onclick="nextStage()">
+<body>
 
-<div id="content"></div>
+<!-- SPOT 1 -->
+
+<div class="section" id="inicio" onclick="irAvion()">
+TOCA AQUÍ
+</div>
+
+<!-- SPOT 2 -->
+
+<div class="section">
+<canvas id="avion1"></canvas>
+</div>
+
+<!-- SPOT 3 -->
+
+<div class="section" id="robotica">
+
+<h1>ROBÓTICA</h1>
+
+<p>
+La robótica es una rama de la ingeniería y la tecnología que se encarga del diseño,
+construcción y programación de robots capaces de realizar tareas de forma automática.
+Los robots pueden utilizarse en diferentes áreas como la industria, la medicina,
+la exploración espacial y la educación tecnológica.
+
+Uno de los principales objetivos de la robótica es mejorar la eficiencia en los procesos
+productivos y facilitar actividades que pueden resultar peligrosas para los seres humanos.
+Actualmente los robots industriales son ampliamente utilizados en fábricas para realizar
+ensamblajes, soldaduras y transporte de materiales.
+
+Otra característica importante de la robótica es la integración de sensores que permiten
+a los robots percibir su entorno. Gracias a estos sensores los robots pueden detectar
+objetos, medir distancias y adaptarse a diferentes condiciones de trabajo.
+
+La inteligencia artificial también juega un papel fundamental en el desarrollo de robots
+modernos. Mediante algoritmos de aprendizaje automático los robots pueden analizar datos
+y tomar decisiones de manera autónoma.
+
+La robótica educativa se ha convertido en una herramienta muy importante para el aprendizaje
+de programación, electrónica y pensamiento lógico. En muchas universidades y centros de
+investigación se desarrollan proyectos que buscan innovar en este campo tecnológico.
+
+Entre las características principales de los robots se encuentran la autonomía,
+la precisión, la capacidad de repetición de tareas y la interacción con su entorno.
+Estas cualidades permiten que los robots sean utilizados en múltiples aplicaciones
+que benefician a la sociedad y contribuyen al avance de la tecnología moderna.
+</p>
+
+</div>
+
+<!-- SPOT 4 -->
+
+<div class="section">
+<canvas id="avion2"></canvas>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
 <script>
-let stage = 0;
-const content = document.getElementById("content");
 
-function showTouch(){
-    content.innerHTML = `<h1 class="holo">TOCA AQUÍ</h1>`;
+/* BOTON INICIO */
+
+function irAvion(){
+window.scrollTo({
+top:window.innerHeight,
+behavior:"smooth"
+})
 }
 
-function createPlane(text){
-    content.innerHTML = `
-    <div class="plane-container">
-        <svg viewBox="0 0 600 300">
-            <!-- Cuerpo principal -->
-            <polygon fill="none" stroke="#00ffff" stroke-width="4"
-            points="50,150 500,120 420,150 500,180"/>
+/* FUNCION CREAR AVION */
 
-            <!-- Ala inferior -->
-            <polygon fill="none" stroke="#00ffff" stroke-width="4"
-            points="250,150 380,230 300,150"/>
+function crearAvion(canvasID, texto){
 
-            <!-- Línea interna -->
-            <line x1="50" y1="150" x2="420" y2="150"
-            stroke="#00ffff" stroke-width="3"/>
-        </svg>
+const scene = new THREE.Scene()
 
-        <div class="plane-text">${text}</div>
-    </div>
-    `;
+const camera = new THREE.PerspectiveCamera(
+75,
+window.innerWidth/window.innerHeight,
+0.1,
+1000
+)
+
+const renderer = new THREE.WebGLRenderer({
+canvas:document.getElementById(canvasID),
+alpha:true
+})
+
+renderer.setSize(window.innerWidth, window.innerHeight)
+
+camera.position.z = 80
+
+const material = new THREE.MeshBasicMaterial({
+color:0xff0000
+})
+
+const loader = new THREE.FontLoader()
+
+loader.load(
+'https://threejs.org/examples/fonts/helvetiker_regular.typeface.json',
+function(font){
+
+const grupo = new THREE.Group()
+
+for(let i=0;i<1500;i++){
+
+let geo = new THREE.TextGeometry(texto,{
+font:font,
+size:1,
+height:0.1
+})
+
+let mesh = new THREE.Mesh(geo,material)
+
+mesh.position.x = (Math.random()-0.5)*60
+mesh.position.y = (Math.random()-0.5)*20
+mesh.position.z = (Math.random()-0.5)*20
+
+if(Math.abs(mesh.position.x)<10){
+mesh.position.y*=0.3
 }
 
-function showInfo(){
-    content.innerHTML = `
-    <div class="info">
-        <h2>¿Qué es la Robótica?</h2>
-        <p>
-        La robótica es una disciplina que combina programación,
-        electrónica y mecánica para diseñar robots capaces de
-        ejecutar tareas automáticamente.
-        </p>
-        <p>
-        Su aplicación abarca industrias, medicina, tecnología
-        y automatización de procesos.
-        </p>
-    </div>
-    `;
+grupo.add(mesh)
+
 }
 
-function nextStage(){
-    stage++;
+scene.add(grupo)
 
-    if(stage===1){
-        createPlane("HELLO WORLD");
-    }
-    else if(stage===2){
-        showInfo();
-    }
-    else if(stage===3){
-        createPlane("GRACIAS");
-    }
-    else{
-        stage=0;
-        showTouch();
-    }
+function animate(){
+requestAnimationFrame(animate)
+grupo.rotation.y +=0.002
+renderer.render(scene,camera)
 }
 
-showTouch();
+animate()
+
+})
+
+}
+
+/* CREAR LOS DOS AVIONES */
+
+crearAvion("avion1","HELLO WORLD")
+
+crearAvion("avion2","MUCHOOOOSSS GRACIAS")
+
 </script>
 
 </body>
