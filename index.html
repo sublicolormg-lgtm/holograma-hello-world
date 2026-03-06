@@ -2,53 +2,67 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Proyecto Robótica</title>
+<title>Proyecto de Robótica</title>
 
 <style>
 
 body{
 margin:0;
-font-family:Arial;
 background:black;
 color:white;
+font-family:Arial;
 scroll-behavior:smooth;
+overflow-x:hidden;
 }
 
 /* SPOTS */
 
-.section{
+.spot{
 height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 text-align:center;
+padding:40px;
 }
 
-/* SPOT 1 */
+/* BOTON */
 
-#inicio{
-font-size:60px;
-color:red;
-cursor:pointer;
+.boton{
+padding:20px 40px;
+background:red;
+color:white;
+text-decoration:none;
+font-size:30px;
+border-radius:10px;
+margin-top:40px;
 }
 
-/* SPOT 3 */
+/* TITULO */
 
-#robotica h1{
+.titulo{
 color:red;
 font-size:50px;
+margin-bottom:30px;
 }
 
-#robotica p{
+/* TEXTO */
+
+.texto{
 max-width:800px;
 line-height:1.6;
 font-size:18px;
-color:white;
 }
 
-canvas{
-display:block;
+/* AVION */
+
+.avion{
+color:red;
+font-family:monospace;
+white-space:pre;
+font-size:8px;
+line-height:8px;
 }
 
 </style>
@@ -58,149 +72,103 @@ display:block;
 
 <!-- SPOT 1 -->
 
-<div class="section" id="inicio" onclick="irAvion()">
-TOCA AQUÍ
-</div>
+<section class="spot">
 
-<!-- SPOT 2 -->
+<h1 style="font-size:50px;">Proyecto de Robótica</h1>
 
-<div class="section">
-<canvas id="avion1"></canvas>
-</div>
+<a href="#avion1" class="boton">TOCA AQUÍ</a>
 
-<!-- SPOT 3 -->
+</section>
 
-<div class="section" id="robotica">
 
-<h1>ROBÓTICA</h1>
+<!-- SPOT 2 AVION HELLO WORLD -->
 
-<p>
-La robótica es una rama de la ingeniería y la tecnología que se encarga del diseño,
-construcción y programación de robots capaces de realizar tareas de forma automática.
-Los robots pueden utilizarse en diferentes áreas como la industria, la medicina,
-la exploración espacial y la educación tecnológica.
+<section class="spot" id="avion1">
 
-Uno de los principales objetivos de la robótica es mejorar la eficiencia en los procesos
-productivos y facilitar actividades que pueden resultar peligrosas para los seres humanos.
-Actualmente los robots industriales son ampliamente utilizados en fábricas para realizar
-ensamblajes, soldaduras y transporte de materiales.
+<div class="avion">
 
-Otra característica importante de la robótica es la integración de sensores que permiten
-a los robots percibir su entorno. Gracias a estos sensores los robots pueden detectar
-objetos, medir distancias y adaptarse a diferentes condiciones de trabajo.
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD  
 
-La inteligencia artificial también juega un papel fundamental en el desarrollo de robots
-modernos. Mediante algoritmos de aprendizaje automático los robots pueden analizar datos
-y tomar decisiones de manera autónoma.
-
-La robótica educativa se ha convertido en una herramienta muy importante para el aprendizaje
-de programación, electrónica y pensamiento lógico. En muchas universidades y centros de
-investigación se desarrollan proyectos que buscan innovar en este campo tecnológico.
-
-Entre las características principales de los robots se encuentran la autonomía,
-la precisión, la capacidad de repetición de tareas y la interacción con su entorno.
-Estas cualidades permiten que los robots sean utilizados en múltiples aplicaciones
-que benefician a la sociedad y contribuyen al avance de la tecnología moderna.
-</p>
+        HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD
+     HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD
+  HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD
+HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD
+      HELLO WORLD HELLO WORLD HELLO WORLD HELLO WORLD
+           HELLO WORLD HELLO WORLD HELLO WORLD
 
 </div>
 
-<!-- SPOT 4 -->
+<a href="#robotica" class="boton">CONTINUAR</a>
 
-<div class="section">
-<canvas id="avion2"></canvas>
+</section>
+
+
+<!-- SPOT 3 ROBOTICA -->
+
+<section class="spot" id="robotica">
+
+<h1 class="titulo">ROBÓTICA</h1>
+
+<div class="texto">
+
+<p>La robótica es una rama de la ingeniería dedicada al diseño y construcción de robots.</p>
+<p>Combina disciplinas como mecánica, electrónica y programación.</p>
+<p>Los robots permiten automatizar procesos industriales.</p>
+<p>Son utilizados en fábricas modernas alrededor del mundo.</p>
+<p>Los robots pueden trabajar con gran precisión.</p>
+<p>También realizan tareas peligrosas para los humanos.</p>
+<p>Los sensores permiten que los robots detecten su entorno.</p>
+<p>Los robots pueden identificar objetos y movimientos.</p>
+<p>La robótica moderna utiliza inteligencia artificial.</p>
+<p>Esto permite que los robots aprendan mediante algoritmos.</p>
+<p>Los robots se utilizan en medicina para cirugías.</p>
+<p>También se usan en exploración espacial.</p>
+<p>Existen robots submarinos que investigan océanos.</p>
+<p>La robótica educativa enseña programación.</p>
+<p>Los estudiantes desarrollan pensamiento lógico.</p>
+<p>Los robots utilizan motores y actuadores.</p>
+<p>Estos permiten generar movimiento.</p>
+<p>La automatización mejora la productividad.</p>
+<p>La robótica forma parte de la industria 4.0.</p>
+<p>En el futuro la robótica seguirá transformando el mundo.</p>
+
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<a href="#gracias" class="boton">FINAL</a>
 
-<script>
+</section>
 
-/* BOTON INICIO */
 
-function irAvion(){
-window.scrollTo({
-top:window.innerHeight,
-behavior:"smooth"
-})
-}
+<!-- SPOT 4 AVION GRACIAS -->
 
-/* FUNCION CREAR AVION */
+<section class="spot" id="gracias">
 
-function crearAvion(canvasID, texto){
+<div class="avion">
 
-const scene = new THREE.Scene()
+MUCHAAAASSS GRACIAS MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS  
+MUCHAAAASSS GRACIAS MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS  
+MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS  
+MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS  
 
-const camera = new THREE.PerspectiveCamera(
-75,
-window.innerWidth/window.innerHeight,
-0.1,
-1000
-)
+        MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS
+     MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS
+  MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS
+MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS
+     MUCHOOOOSSS GRACIAS MUCHOOOOSSS GRACIAS
+        MUCHOOOOSSS GRACIAS
 
-const renderer = new THREE.WebGLRenderer({
-canvas:document.getElementById(canvasID),
-alpha:true
-})
+</div>
 
-renderer.setSize(window.innerWidth, window.innerHeight)
-
-camera.position.z = 80
-
-const material = new THREE.MeshBasicMaterial({
-color:0xff0000
-})
-
-const loader = new THREE.FontLoader()
-
-loader.load(
-'https://threejs.org/examples/fonts/helvetiker_regular.typeface.json',
-function(font){
-
-const grupo = new THREE.Group()
-
-for(let i=0;i<1500;i++){
-
-let geo = new THREE.TextGeometry(texto,{
-font:font,
-size:1,
-height:0.1
-})
-
-let mesh = new THREE.Mesh(geo,material)
-
-mesh.position.x = (Math.random()-0.5)*60
-mesh.position.y = (Math.random()-0.5)*20
-mesh.position.z = (Math.random()-0.5)*20
-
-if(Math.abs(mesh.position.x)<10){
-mesh.position.y*=0.3
-}
-
-grupo.add(mesh)
-
-}
-
-scene.add(grupo)
-
-function animate(){
-requestAnimationFrame(animate)
-grupo.rotation.y +=0.002
-renderer.render(scene,camera)
-}
-
-animate()
-
-})
-
-}
-
-/* CREAR LOS DOS AVIONES */
-
-crearAvion("avion1","HELLO WORLD")
-
-crearAvion("avion2","MUCHOOOOSSS GRACIAS")
-
-</script>
+</section>
 
 </body>
 </html>
